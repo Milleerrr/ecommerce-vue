@@ -1,12 +1,12 @@
 <script setup>
-import { ref, onMounted, defineProps, toRefs} from 'vue'
+import { ref, onMounted, defineProps, computed } from 'vue';
 import Card from './Card.vue';
 
-const products = ref([]);
+// Destructure the prop
+const { querySearch } = defineProps(['querySearch']);
 
-defineProps({
-    querySearch: String
-})
+
+const products = ref([]);
 
 // Component functions
 const getItems = async () => {
@@ -20,45 +20,29 @@ const getItems = async () => {
     } catch (error) {
         console.error("There was a problem fetching the products:", error);
     }
-}
+};
 
-const filteredProducts = () => {
-    return querySearch
-        ? sortedProducts.filter(
-            product => product.title.toLowerCase().indexOf(querySearch.toLowerCase()) != -1
-        )
-        : sortedProducts;
-}
+const filteredProducts = computed(() => {
+    if (querySearch.value && querySearch.value.trim() !== '') {
+        return products.value.filter(product => product.title.toLowerCase().includes(querySearch.value.toLowerCase()));
+    } else {
+        return products.value;
+    }
+});
 
-const sortedProducts = () => {
-    return products.value.sort((productA, productB) => {
 
-        const propA = getProductPropForSorting(productA);
-        const propB = getProductPropForSorting(productB);
 
-        if (propA < propB)
-            return -1;
-        if (propB < propB)
-            return 1;
 
-        return 0;
-    });
-}
-
-// Run on start up
+// Run on startup
 onMounted(getItems);
-
-
 </script>
 
 <template>
     <div v-if="products.length" class="container text-center">
         <div class="row">
-            <div v-for="product in products" :key="product.id" class="col mb-4 d-flex align-items-stretch">
-                <Card :product-info="product"/>
+            <div v-for="product in filteredProducts" :key="product.id" class="col mb-4 d-flex align-items-stretch">
+                <Card :product-info="product" />
             </div>
         </div>
     </div>
 </template>
-
-<style scoped></style>

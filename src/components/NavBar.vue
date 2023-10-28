@@ -1,10 +1,14 @@
 <script setup>
+import { defineEmits } from 'vue';
 
-defineProps({
+const emit = defineEmits();
 
-})
+const emitQuery = () => {
+    emit('update:query', query);
+}
 
 // Vairables 
+let query = ''
 
 </script>
 
@@ -36,8 +40,8 @@ defineProps({
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input v-model="query" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="d-flex" role="search" @submit.prevent>
+                    <input v-model="query" @input="emitQuery" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>

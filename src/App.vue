@@ -1,28 +1,26 @@
 <script setup>
-import NavBar from './components/NavBar.vue'
+import { ref } from 'vue';
+import NavBar from './components/NavBar.vue';
 import SearchResults from './components/SearchResults.vue';
+
+const currentQuery = ref('');
+
+const updateQuery = (query) => {
+  currentQuery.value = query;
+};
+
 </script>
 
 <template>
   <div class="mb-5">
-    <NavBar />
+    <NavBar @update:query="updateQuery" />
   </div>
   <div>
-    <SearchResults />
+    <!-- Here, currentQuery is passed as a prop, not as an event -->
+    <SearchResults :querySearch="currentQuery" />
   </div>
 </template>
 
 <style scoped>
-/* .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-} */
+/* ... your styles ... */
 </style>
