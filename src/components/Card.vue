@@ -44,9 +44,6 @@ const handleClick = () => {
             <li class="list-group-item">Price: £{{ price }}</li>
             <li class="list-group-item">Category: {{ category }}</li>
         </ul>
-        <div class="card-body">
-            <a href="#" class="card-link">View details</a>
-        </div>
     </div>
 </template>
 
@@ -65,5 +62,6 @@ const handleClick = () => {
 .card-item:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 15px rgba(3, 91, 255, 0.726);
+    cursor: pointer;
 }
 </style>
