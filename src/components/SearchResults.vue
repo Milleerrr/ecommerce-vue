@@ -5,7 +5,6 @@ import Card from './Card.vue';
 // Destructure the prop
 const { querySearch } = defineProps(['querySearch']);
 
-
 const products = ref([]);
 
 // Component functions
@@ -23,23 +22,22 @@ const getItems = async () => {
 };
 
 const filteredProducts = computed(() => {
-    console.log('1');
     if (querySearch.value && querySearch.value.trim() !== '') {
-        console.log('3')
         return products.value.filter(product => product.title.toLowerCase().includes(querySearch.value.toLowerCase()));
     } else {
-        console.log('2')
         return products.value;
     }
 });
 
 // Run on startup
 onMounted(getItems);
+
 </script>
 
 <template>
     <div class="container text-center">
         <div class="row">
+            <!-- Use the filteredProducts computed property here -->
             <div v-for="product in filteredProducts" :key="product.id" class="col mb-4 d-flex align-items-stretch">
                 <Card :product-info="product" />
             </div>

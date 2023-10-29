@@ -16,7 +16,6 @@ const updateQuery = (query) => {
     <NavBar @update:query="updateQuery" />
   </div>
   <div>
-    <!-- Here, currentQuery is passed as a prop, not as an event -->
     <SearchResults :querySearch="currentQuery" />
   </div>
 </template>

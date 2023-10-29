@@ -1,14 +1,14 @@
 <script setup>
-import { defineEmits } from 'vue';
+import { defineEmits} from 'vue';
 
-const emit = defineEmits();
+const emit = defineEmits(['update:query']);
 
 const emitQuery = () => {
     emit('update:query', query);
 }
 
 // Vairables 
-let query = ''
+let query = '';
 
 </script>
 
@@ -40,9 +40,9 @@ let query = ''
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search" @submit.prevent>
+                <form class="d-flex" role="search">
                     <input v-model="query" @input="emitQuery" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button class="btn btn-outline-success" @click.prevent type="submit">Search</button>
                 </form>
             </div>
         </div>
