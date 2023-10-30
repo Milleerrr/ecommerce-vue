@@ -41,6 +41,10 @@ const updateSelectedItem = (clickedProduct) => {
     console.log('Item selected displayed');
 }
 
+const setSelectedItemToNull = () => {
+    selectedItem.value = null;
+}
+
 onMounted(getItems);
 
 </script>
@@ -53,7 +57,7 @@ onMounted(getItems);
                 <Card :product-info="product" @updatedSelectedItem="updateSelectedItem" />
             </div>
             <div v-else>
-                <div class="mb-4" @click="selectedItem = null">
+                <div class="mb-4" @click="setSelectedItemToNull">
                     <button class="btn btn-primary" id="show-all" type="button">Go back</button>
                 </div>
                 <div class="col mb-4 d-flex align-items-stretch">
